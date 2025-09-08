@@ -1,10 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-     <title>My Personal Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick's GitHub Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fcfcfc;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        main {
+            margin-bottom: 3rem;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+        
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .topic {
+            background-color: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+            padding-top: 2rem;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello world!</h1>
-    <p>Welcome to my Github page!</p>
+    <header>
+        <h1>Rick</h1>
+        <p class="tagline">Sharing knowledge and perspectives</p>
+    </header>
+    
+    <main>
+        <p>I share knowledge and personal perspectives on GitHub covering a wide range of topics including:</p>
+        
+        <div class="topics">
+            <span class="topic">Computer Science</span>
+            <span class="topic">Mathematics</span>
+            <span class="topic">Philosophy</span>
+            <span class="topic">Literature</span>
+            <span class="topic">Politics</span>
+            <span class="topic">Economics</span>
+            <span class="topic">Art</span>
+        </div>
+        
+        <p>I also share my insights on education and my vision for the future world.</p>
+    </main>
+    
+    <footer>
+        <p>Updated regularly on GitHub</p>
+    </footer>
 </body>
 </html>

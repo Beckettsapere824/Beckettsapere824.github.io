@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <!--make sure characters are displayed normally-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="concrete-revolutio-s2-5-69.jpg">
     <!--for moblie-->
     <title>Rick's GitHub Page</title>
     <style>
@@ -16,7 +18,6 @@
         /* reset */
 
         body {
-            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
             line-height: 1.6;
             color: #333;
             background-color: #fcfcfc;
@@ -72,6 +73,11 @@
             padding-top: 2rem;
             border-top: 1px solid #eaeaea;
         }
+
+        #profilephoto {
+            display: block;
+            margin: 0 auto
+        }
         
         @media (max-width: 600px) {
             body {
@@ -82,18 +88,53 @@
                 font-size: 2rem;
             }
         }
+
+        #hello {
+            margin-top: 60px
+        }
+
+        ul {
+            border: solid grey;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
     <header>
-        <h1>Rick</h1>
-        <p class="tagline">Sharing knowledge and perspectives</p>
+        <div class = "row">
+            <div class = "col-lg-6 col-12">
+                <h1 class = text-center>Rick</h1>
+            </div>
+            <div class = "col-lg-6 col-12">
+                <img src="concrete-revolutio-s2-5-69.jpg" alt="profile photo" width="300px" id="profilephoto"> <!--change the profile photo if u want-->
+            </div>
+        </div>
+        </header>
+        <p class="tagline text-center">Sharing knowledge and perspectives</p>
     </header>
     
     <main>
+        <table class="table table-info table-hover table-striped">
+            <tr>
+                <th>Academic Progress</th>
+                <th>School</th>
+            </tr>
+            <tr>
+                <td>Middle School</td>
+                <td>Nanjing Shuren School</td>
+            </tr>
+            <tr>
+                <td>High School</td>
+                <td>...</td> <!--I dont know-->
+            </tr>
+            <tr>
+                <td>Undergraduate University</td>
+                <td>HKU</td>
+            </tr>
+        </table>
         <p>I share knowledge and personal perspectives on GitHub covering a wide range of topics including:</p>
         
-        <div class="topics">
+        <!-- <div class="topics">
             <span class="topic">Computer Science</span>
             <span class="topic">Mathematics</span>
             <span class="topic">Philosophy</span>
@@ -101,13 +142,42 @@
             <span class="topic">Politics</span>
             <span class="topic">Economics</span>
             <span class="topic">Art</span>
-        </div>
+        </div> -->
+
+        <ul class="list-group">
+            <li class="list-group-item bg-primary text-white">Computer Science</li>
+            <li class="list-group-item bg-secondary text-white">Mathematics</li>
+            <li class="list-group-item bg-success text-white">Philosophy</li>
+            <li class="list-group-item bg-danger text-white">Literature</li>
+            <li class="list-group-item bg-warning text-white">Politics</li>
+            <li class="list-group-item bg-dark text-white">Economic</li>
+            <li class="list-group-item bg-info text-white">Art</li>
+        </ul>
         
         <p>I also share my insights on education and my vision for the future world.</p>
+
+        <div class="mb-5">
+        <h1 id="hello">Contact me</h1>
+        <label class="form-label">Email:</label>
+        <input type="email" placeholder="email" class="form-control"><br>
+        <label class="form-label">Name:</label>
+        <input type="text" placeholder="name" class="form-control">
+        </div>
+
+        <h1>Do you love me</h1>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="love" value="Love" checked>
+            <label class="form-check-label" for="love">Love me</label><br>
+            <input type="radio" name="love" value="not Love" class="form-check-input">
+            <label class="form-check-label" for="love">Don't love me</label>
+        </div>
+        <div class="text-center">        
+            <button class="btn btn-primary btn-lg mt-5">Submit</button>
+        </div>
     </main>
-    
     <footer>
         <p>Updated regularly on GitHub</p>
     </footer>
+    </div>
 </body>
 </html>

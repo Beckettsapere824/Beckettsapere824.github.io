@@ -1,3 +1,7 @@
 Thumbs.db
 Desktop.ini
 node_modules/
+
+# Internal planning and visual research artifacts
+research_notes.md
+template-previews/

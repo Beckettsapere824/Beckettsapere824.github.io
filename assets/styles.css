@@ -316,3 +316,10 @@ h1 .accent { color: var(--ember); text-shadow: 0 0 42px rgba(255,111,61,.28); }
   .personal-section { padding-top: 6rem; padding-bottom: 6rem; }
   .personal-section h2 { font-size: clamp(2.8rem, 14vw, 4.1rem); }
 }
+
+/* Keep venture room cards above decorative scene layers and make their actions unambiguous. */
+.rooms-scene .corridor-lines,
+.rooms-scene .scene-note { pointer-events: none; }
+.rooms-scene .scene-note { z-index: 1; }
+.rooms-scene .room-card { z-index: 2; cursor: pointer; }
+.rooms-scene .room-card:focus-visible { outline: 3px solid var(--lime); outline-offset: 5px; }

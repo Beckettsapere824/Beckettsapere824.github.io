@@ -171,7 +171,7 @@ h1 .accent { color: var(--ember); text-shadow: 0 0 42px rgba(255,111,61,.28); }
 .careers-hero { min-height: 72svh; display: grid; align-items: end; position: relative; overflow: hidden; padding: 10rem max(1.5rem, calc((100vw - 1320px) / 2)) 4rem; background: radial-gradient(circle at 77% 24%, rgba(184,255,91,.25), transparent 20%), radial-gradient(circle at 30% 45%, rgba(165,124,255,.36), transparent 28%), #0e0d14; }
 .careers-hero::before { content: ""; position: absolute; width: min(60vw, 650px); aspect-ratio: 1; border: 1px solid rgba(184,255,91,.32); border-radius: 50%; right: 6vw; bottom: -30vw; box-shadow: 0 0 0 70px rgba(184,255,91,.03), 0 0 0 145px rgba(184,255,91,.025), 0 0 100px 30px rgba(184,255,91,.1); }
 .careers-hero-copy { max-width: 58rem; position: relative; }
-.careers-hero h1 { max-width: 9.5ch; }
+.careers-hero h1 { max-width: 11.5ch; font-size: clamp(2.8rem, 6.3vw, 6.1rem); line-height: .88; overflow-wrap: anywhere; }
 .careers-hero p { max-width: 40rem; margin: 1.65rem 0 0; color: #d7cfd5; line-height: 1.8; }
 .careers-content { padding-top: 7rem; padding-bottom: 8rem; background: #ece8de; color: #19141a; }
 .careers-content .section-label { color: #6c46b5; }
@@ -239,7 +239,7 @@ h1 .accent { color: var(--ember); text-shadow: 0 0 42px rgba(255,111,61,.28); }
   .venture-role { font-size: .78rem; }
   .site-footer { align-items: flex-start; flex-direction: column; }
   .careers-hero { min-height: 65svh; padding-bottom: 3rem; }
-  .careers-hero h1 { font-size: clamp(3.4rem, 15vw, 5rem); }
+  .careers-hero h1 { max-width: 12.5ch; font-size: clamp(2.65rem, 12.3vw, 4.15rem); line-height: .91; }
 }
 
 @media (prefers-reduced-motion: reduce) {

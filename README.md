@@ -1,86 +1,91 @@
-# Rick Beckett
+![RICK — Personal Site](assets/readme-site-banner.svg)
 
-> **AI · Education · Data · Systems**
+# RICK — Personal Site
 
-[Personal website](https://beckettsapere824.github.io/) · [Venture Office](https://beckettsapere824.github.io/venture-office/) · [Careers](https://beckettsapere824.github.io/venture-office/careers/)
+[![Live site](https://img.shields.io/badge/Live%20site-beckettsapere824.github.io-ff7a45?style=flat-square&labelColor=171219)](https://beckettsapere824.github.io/)
+[![License](https://img.shields.io/badge/license-MIT-b8ff5b?style=flat-square&labelColor=171219)](LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/deployment-GitHub%20Pages-a77dff?style=flat-square&labelColor=171219)](https://beckettsapere824.github.io/)
 
-**English** · [简体中文](#简体中文) · [繁體中文](#繁體中文)
+> A personal site for **Rick Beckett** — a technical builder, founder, and interdisciplinary thinker working across AI, education, data, and systems.
+
+[**Visit the site**](https://beckettsapere824.github.io/) · [**Venture Office**](https://beckettsapere824.github.io/venture-office/) · [**Careers**](https://beckettsapere824.github.io/venture-office/careers/) · [**GitHub profile**](https://github.com/Beckettsapere824)
 
 ---
 
-## English
+## In this repository
 
-I am **Rick Beckett**, a technical builder, founder, and interdisciplinary thinker working across artificial intelligence, education, data, and institutions. My foundation is in computer science and AI, complemented by training and sustained interest in economics, education, law, mathematics, theoretical physics, and poetry.
+This repository is the source for the public personal website and its company-facing Venture Office space. It is intentionally built as a lean static site: no framework lock-in, no build step, and no unnecessary dependency layer.
 
-| Focus | Current work |
+| Surface | Public route | Purpose |
+|---|---|---|
+| **Personal site** | [`/`](https://beckettsapere824.github.io/) | Personal identity, current work, interdisciplinary perspective, and direct contact. |
+| **Venture Office** | [`/venture-office/`](https://beckettsapere824.github.io/venture-office/) | Company-facing context for EduTech × Data, collaborations, and the operating network. |
+| **Careers** | [`/venture-office/careers/`](https://beckettsapere824.github.io/venture-office/careers/) | An open-introductions page for the emerging EduTech team. |
+
+## What it communicates
+
+The site gives each part of the practice a distinct place while keeping the personal and company narratives connected.
+
+| Theme | Intent |
 |---|---|
-| **AI education & data** | Founder & CEO of **EduTech × Data**, focused on AI-native learning products and compliant LLM training data, especially education data. |
-| **Community & incubation** | Core member of **InnoAI**, an AI community for founders, developers, and collaborative experimentation. |
-| **Digital infrastructure** | Web Founding Engineer and core contributor to **OIOLaw**, a platform for international legal, tax, and cross-border compliance collaboration. |
+| **AI × Education × Data** | Show the work at the intersection of learning products, AI-native systems, and responsible training data. |
+| **Systems thinking** | Connect technical work with the institutional, economic, legal, mathematical, and human contexts around it. |
+| **Clear collaboration paths** | Make the personal website, Venture Office, company contact routes, and careers entry point easy to discover. |
 
-### Explore
+## Project structure
 
-| Destination | Link |
-|---|---|
-| Personal website | [beckettsapere824.github.io](https://beckettsapere824.github.io/) |
-| RICK — Venture Office | [Company space](https://beckettsapere824.github.io/venture-office/) |
-| Venture Office Careers | [Open introductions](https://beckettsapere824.github.io/venture-office/careers/) |
-| EduTech × Data product | [Lumen Play](https://egsp-web.vercel.app/) |
-| InnoAI / AIx Origin | [aixorigin.innoai.org.cn](https://aixorigin.innoai.org.cn/) |
-| OIOLaw | [oiolawaiplatform.horse](https://oiolawaiplatform.horse/) |
+```text
+.
+├── index.html                     # Personal site root
+├── venture-office/
+│   ├── index.html                 # Company-facing Venture Office
+│   └── careers/index.html         # Careers / open introductions
+├── assets/
+│   ├── styles.css                 # Shared visual system
+│   ├── personal.js                # Root-page language and interaction logic
+│   └── site.js                    # Venture Office language and interaction logic
+├── robots.txt                     # Crawler access rules
+└── sitemap.xml                    # Canonical public routes
+```
 
-For a considered conversation, write to [beckett114191@gmail.com](mailto:beckett114191@gmail.com). For official enquiries, use [InnoAIxHKU@gmail.com](mailto:InnoAIxHKU@gmail.com).
+## Local preview
+
+The website is static. From the repository root, run the following and open `http://localhost:8000`.
+
+```bash
+python3 -m http.server 8000
+```
+
+## Content and language
+
+The public experience supports **English**, **简体中文**, and **繁體中文**. Page titles, descriptions, canonical URLs, sitemap, robots rules, and structured data are included to make the public routes easier for search engines and visitors to understand.
+
+## Connect
+
+[Personal website](https://beckettsapere824.github.io/) · [Lumen Play](https://egsp-web.vercel.app/) · [AIx Origin](https://aixorigin.innoai.org.cn/) · [OIOLaw](https://oiolawaiplatform.horse/) · [Email Rick](mailto:beckett114191@gmail.com)
 
 ---
 
 ## 简体中文
 
-我是 **Rick Beckett**，一名技术建造者、创业者与跨学科思考者，工作横跨人工智能、教育、数据与制度。我的基础在计算机科学与人工智能，同时持续投入经济学、教育学、法学、数学、理论物理与诗歌的学习和思考。
+这是 **Rick Beckett** 的个人网站源码仓库，也是 RICK — Venture Office 分页面与招聘入口的发布来源。项目以轻量、可维护的静态站形式组织，覆盖个人介绍、创业项目、合作网络与开放自荐入口。
 
-| 方向 | 当前实践 |
+| 页面 | 作用 |
 |---|---|
-| **AI 教育与数据** | **EduTech × Data** 创始人兼 CEO，专注于 AI 原生学习产品与合规 LLM 训练数据，尤其是教育数据。 |
-| **社区与孵化** | **InnoAI** 核心成员，参与服务创业者、开发者与协作式实验的 AI 社区。 |
-| **数字基础设施** | **OIOLaw** Web 联合创始工程师与核心贡献者，参与国际法律、财税与跨境合规协作平台建设。 |
-
-### 链接
-
-| 入口 | 链接 |
-|---|---|
-| 个人网站 | [beckettsapere824.github.io](https://beckettsapere824.github.io/) |
-| RICK — Venture Office | [公司分页面](https://beckettsapere824.github.io/venture-office/) |
-| Venture Office 招聘 | [开放自荐](https://beckettsapere824.github.io/venture-office/careers/) |
-| EduTech × Data 产品 | [Lumen Play](https://egsp-web.vercel.app/) |
-| InnoAI / AIx Origin | [aixorigin.innoai.org.cn](https://aixorigin.innoai.org.cn/) |
-| OIOLaw | [oiolawaiplatform.horse](https://oiolawaiplatform.horse/) |
-
-欢迎通过 [beckett114191@gmail.com](mailto:beckett114191@gmail.com) 联系我；官方咨询可发送至 [InnoAIxHKU@gmail.com](mailto:InnoAIxHKU@gmail.com)。
-
----
+| [个人主页](https://beckettsapere824.github.io/) | 展示个人背景、正在做的事、跨学科兴趣与联系方式。 |
+| [Venture Office](https://beckettsapere824.github.io/venture-office/) | 展示 EduTech × Data、合作项目与公司侧信息。 |
+| [招聘入口](https://beckettsapere824.github.io/venture-office/careers/) | 面向 AI 教育、学习产品与合规训练数据方向的开放自荐。 |
 
 ## 繁體中文
 
-我是 **Rick Beckett**，一名技術建造者、創業者與跨學科思考者，工作橫跨人工智慧、教育、資料與制度。我的基礎在電腦科學與人工智慧，同時持續投入經濟學、教育學、法學、數學、理論物理與詩歌的學習和思考。
+這是 **Rick Beckett** 的個人網站原始碼倉庫，同時為 RICK — Venture Office 分頁面與招聘入口提供發布來源。專案採用輕量、易維護的靜態網站架構，涵蓋個人介紹、創業項目、合作網絡與開放自薦入口。
 
-| 方向 | 當前實踐 |
+| 頁面 | 作用 |
 |---|---|
-| **AI 教育與資料** | **EduTech × Data** 創辦人兼 CEO，專注於 AI 原生學習產品與合規 LLM 訓練資料，尤其是教育資料。 |
-| **社群與孵化** | **InnoAI** 核心成員，參與服務創業者、開發者與協作式實驗的 AI 社群。 |
-| **數位基礎設施** | **OIOLaw** Web 聯合創始工程師與核心貢獻者，參與國際法律、財稅與跨境合規協作平台建設。 |
-
-### 連結
-
-| 入口 | 連結 |
-|---|---|
-| 個人網站 | [beckettsapere824.github.io](https://beckettsapere824.github.io/) |
-| RICK — Venture Office | [公司分頁面](https://beckettsapere824.github.io/venture-office/) |
-| Venture Office 招聘 | [開放自薦](https://beckettsapere824.github.io/venture-office/careers/) |
-| EduTech × Data 產品 | [Lumen Play](https://egsp-web.vercel.app/) |
-| InnoAI / AIx Origin | [aixorigin.innoai.org.cn](https://aixorigin.innoai.org.cn/) |
-| OIOLaw | [oiolawaiplatform.horse](https://oiolawaiplatform.horse/) |
-
-歡迎透過 [beckett114191@gmail.com](mailto:beckett114191@gmail.com) 聯絡我；官方諮詢可寄至 [InnoAIxHKU@gmail.com](mailto:InnoAIxHKU@gmail.com)。
+| [個人主頁](https://beckettsapere824.github.io/) | 展示個人背景、正在做的事、跨學科興趣與聯絡方式。 |
+| [Venture Office](https://beckettsapere824.github.io/venture-office/) | 展示 EduTech × Data、合作項目與公司側資訊。 |
+| [招聘入口](https://beckettsapere824.github.io/venture-office/careers/) | 面向 AI 教育、學習產品與合規訓練資料方向的開放自薦。 |
 
 ---
 
-*This repository powers the personal website and Venture Office subpages published through GitHub Pages.*
+Released under the [MIT License](LICENSE).

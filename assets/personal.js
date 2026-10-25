@@ -3,17 +3,17 @@
   const translations = {
     en: {
       title: 'Rick', name: 'Rick', founder: 'Founder', mission: 'AI Infrastructure for Future Human Intelligence',
-      cofounder: 'Co-founder', emailLabel: 'Email', projectLabel: 'Project',
+      cofounder: 'Co-founder', emailLabel: 'Email', projectLabel: 'Project', wechatLabel: 'WeChat',
       hiring: 'Noesyx Lab is Hiring | Feel Free to Email Me for Connection & Collaboration'
     },
     'zh-TW': {
       title: 'Rick', name: 'Rick', founder: '創辦人', mission: '為未來人類智慧打造的 AI 基礎設施',
-      cofounder: '共同創辦人', emailLabel: '電子郵件', projectLabel: '專案',
+      cofounder: '共同創辦人', emailLabel: '電子郵件', projectLabel: '專案', wechatLabel: 'WeChat',
       hiring: 'Noesyx Lab 正在招募｜歡迎來信交流與合作'
     },
     es: {
       title: 'Rick', name: 'Rick', founder: 'Fundador', mission: 'Infraestructura de IA para la inteligencia humana del futuro',
-      cofounder: 'Cofundador', emailLabel: 'Correo', projectLabel: 'Proyecto',
+      cofounder: 'Cofundador', emailLabel: 'Correo', projectLabel: 'Proyecto', wechatLabel: 'WeChat',
       hiring: 'Noesyx Lab está contratando | Escríbeme para conectar y colaborar'
     }
   };

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Interactive Hard-Margin SVM · Geometry</title>
+  <title>Interactive Hard-Margin SVM · 硬间隔 SVM 几何演示</title>
   <style>
     :root {
       --bg: #0f1115;
@@ -18,87 +18,131 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.55;
     }
     header {
-      padding: 1rem 1.5rem;
+      padding: 0.9rem 1.4rem;
       border-bottom: 1px solid #2d3139;
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.8rem;
       align-items: center;
       justify-content: space-between;
     }
-    h1 { font-size: 1.15rem; margin: 0; font-weight: 600; }
-    .links a { color: var(--line); margin-right: 1rem; font-size: 0.9rem; }
+    h1 { font-size: 1.1rem; margin: 0; font-weight: 600; }
+    .links a { color: var(--line); margin-right: 1rem; font-size: 0.88rem; text-decoration: none; }
+    .links a:hover { text-decoration: underline; }
     main {
       display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 0;
-      min-height: calc(100vh - 60px);
+      grid-template-columns: 1fr 360px;
+      min-height: calc(100vh - 56px);
     }
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       main { grid-template-columns: 1fr; }
     }
     #canvas-wrap {
-      position: relative;
       background: #12151b;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 12px;
     }
     canvas {
       background: #0d1016;
       cursor: crosshair;
       max-width: 100%;
-      border-radius: 4px;
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px #2d3139;
     }
     aside {
       background: var(--panel);
-      padding: 1.25rem;
+      padding: 1.1rem 1.2rem;
       overflow-y: auto;
       border-left: 1px solid #2d3139;
+      font-size: 0.9rem;
     }
-    h2 { font-size: 0.95rem; margin: 0 0 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
-    p, li { font-size: 0.9rem; color: #c5c8ce; }
-    .btn-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+    h2 {
+      font-size: 0.78rem;
+      margin: 1.1rem 0 0.5rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h2:first-child { margin-top: 0; }
+    p, li { color: #c5c8ce; margin: 0.35rem 0; }
+    ul { padding-left: 1.15rem; margin: 0.3rem 0; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.5rem 0; }
     button {
       background: #2d3139;
       color: var(--text);
       border: 1px solid #3c4048;
       border-radius: 6px;
-      padding: 0.4rem 0.75rem;
+      padding: 0.38rem 0.7rem;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
     }
     button:hover { background: #3c4048; }
     button.active { background: #1a73e8; border-color: #1a73e8; }
-    .legend { display: flex; flex-direction: column; gap: 0.4rem; margin: 1rem 0; }
-    .legend span { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .legend { display: flex; flex-direction: column; gap: 0.35rem; margin: 0.5rem 0; }
+    .legend span { display: flex; align-items: center; gap: 0.5rem; font-size: 0.84rem; color: #c5c8ce; }
+    .dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
     .dot.pos { background: var(--pos); }
     .dot.neg { background: var(--neg); }
     .dot.sv { box-shadow: 0 0 0 2px var(--margin); }
+    .line-swatch {
+      width: 22px; height: 3px; border-radius: 1px; flex-shrink: 0;
+    }
     .status {
       background: #12151b;
       border-radius: 6px;
-      padding: 0.75rem;
-      font-family: ui-monospace, monospace;
-      font-size: 0.8rem;
-      margin-top: 1rem;
+      padding: 0.7rem 0.8rem;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.78rem;
+      margin-top: 0.8rem;
       white-space: pre-wrap;
+      color: #b8bcc4;
+      line-height: 1.45;
     }
-    .hint { font-size: 0.8rem; color: var(--muted); margin-top: 1rem; }
+    .box {
+      background: #12151b;
+      border-radius: 6px;
+      padding: 0.7rem 0.85rem;
+      margin: 0.6rem 0;
+      border-left: 3px solid #1a73e8;
+    }
+    .box.warning { border-left-color: #fbbc04; }
+    .box strong { color: #e8eaed; }
+    .lang-toggle {
+      display: inline-flex;
+      border: 1px solid #3c4048;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-left: 0.5rem;
+    }
+    .lang-toggle button {
+      border: none;
+      border-radius: 0;
+      padding: 0.25rem 0.55rem;
+      background: transparent;
+      font-size: 0.78rem;
+    }
+    .lang-toggle button.active { background: #1a73e8; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Interactive Hard-Margin SVM · Geometry</h1>
+    <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+      <h1 data-i18n="title">硬间隔 SVM 几何演示 / Hard-Margin SVM Geometry</h1>
+      <div class="lang-toggle">
+        <button id="lang-zh" class="active">中</button>
+        <button id="lang-en">EN</button>
+      </div>
+    </div>
     <div class="links">
-      <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank">c-machine-learning repo</a>
+      <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank">c-machine-learning</a>
       <a href="../">← Home</a>
     </div>
   </header>
@@ -107,53 +151,131 @@
       <canvas id="c" width="640" height="520"></canvas>
     </div>
     <aside>
-      <h2>Mode</h2>
+      <h2 data-i18n="h-what">这是在演示什么？</h2>
+      <div class="box">
+        <p data-i18n="what1"><strong>硬间隔支持向量机</strong>要找一条直线，把两类点完全分开，并且让中间的“间隔带”尽可能宽。</p>
+        <p data-i18n="what2">间隔带的两条边界（黄线）刚好碰到一些点——这些点就叫<strong>支持向量</strong>。只有它们决定了直线的位置；其他点再怎么动，只要不越界，边界都不变。</p>
+      </div>
+
+      <h2 data-i18n="h-how">怎么操作</h2>
+      <ul>
+        <li data-i18n="how1"><strong>添加点</strong>：选择 “+ Positive” 或 “− Negative”，在画布上点击。</li>
+        <li data-i18n="how2"><strong>拖动点</strong>：切到 “Drag”，按住点拖动，观察边界如何变化。</li>
+        <li data-i18n="how3"><strong>关键实验</strong>：先拖动一个<strong>没有</strong>黄圈的点——边界几乎不动。再拖动一个<strong>有</strong>黄圈的支持向量——整个间隔带立刻旋转或平移。</li>
+      </ul>
+
       <div class="btn-row">
         <button id="mode-pos" class="active">+ Positive</button>
         <button id="mode-neg">− Negative</button>
         <button id="mode-drag">Drag</button>
       </div>
       <div class="btn-row">
-        <button id="btn-clear">Clear</button>
-        <button id="btn-demo">Load demo</button>
+        <button id="btn-clear" data-i18n="btn-clear">清空</button>
+        <button id="btn-demo" data-i18n="btn-demo">加载示例</button>
       </div>
 
-      <h2>Legend</h2>
+      <h2 data-i18n="h-legend">图例</h2>
       <div class="legend">
-        <span><i class="dot pos"></i> Positive class</span>
-        <span><i class="dot neg"></i> Negative class</span>
-        <span><i class="dot pos sv"></i> Support vector</span>
-        <span style="color:var(--line)">— Decision boundary</span>
-        <span style="color:var(--margin)">— Margin boundaries (±1)</span>
+        <span><i class="dot pos"></i> <span data-i18n="leg-pos">正类点 (+1)</span></span>
+        <span><i class="dot neg"></i> <span data-i18n="leg-neg">负类点 (−1)</span></span>
+        <span><i class="dot pos sv"></i> <span data-i18n="leg-sv">支持向量（决定边界）</span></span>
+        <span><i class="line-swatch" style="background:var(--line)"></i> <span data-i18n="leg-dec">决策边界 w·x + b = 0</span></span>
+        <span><i class="line-swatch" style="background:var(--margin)"></i> <span data-i18n="leg-mar">间隔边界 w·x + b = ±1</span></span>
       </div>
 
-      <h2>What you should notice</h2>
-      <ul>
-        <li>Only the points that touch the margin (support vectors) determine the hyperplane.</li>
-        <li>Moving a non-support vector does nothing to the boundary.</li>
-        <li>Moving a support vector immediately rotates / shifts the slab.</li>
-        <li>When classes become non-separable the solver reports failure (hard-margin cannot exist).</li>
-      </ul>
+      <h2 data-i18n="h-why">为什么这很重要？</h2>
+      <div class="box warning">
+        <p data-i18n="why1">对偶问题里，只有 α<sub>i</sub> > 0 的样本会出现在最终的 w 展开式中。这些样本就是支持向量。这就是“稀疏性”的几何来源——也是 SVM 预测时只需要支持向量的原因。</p>
+      </div>
 
-      <div class="status" id="status">Click to add points…</div>
-      <p class="hint">This is the geometric view of the hard-margin primal (node M3.1) and its dual support-vector expansion (node M3.2). The dual coefficients α are positive exactly on the highlighted support vectors.</p>
+      <div class="status" id="status">…</div>
+
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem;" data-i18n="footer">
+        对应笔记节点：M3.1 硬间隔原问题 · M3.2 对偶与支持向量。本演示用简化的对偶坐标上升求解，仅用于教学直觉，不是生产级求解器。
+      </p>
     </aside>
   </main>
 
 <script>
-/**
- * Lightweight 2-D hard-margin SVM via dual coordinate ascent
- * (sufficient for interactive teaching; not a production solver).
- */
+const i18n = {
+  zh: {
+    title: '硬间隔 SVM 几何演示 / Hard-Margin SVM Geometry',
+    'h-what': '这是在演示什么？',
+    what1: '<strong>硬间隔支持向量机</strong>要找一条直线，把两类点完全分开，并且让中间的“间隔带”尽可能宽。',
+    what2: '间隔带的两条边界（黄线）刚好碰到一些点——这些点就叫<strong>支持向量</strong>。只有它们决定了直线的位置；其他点再怎么动，只要不越界，边界都不变。',
+    'h-how': '怎么操作',
+    how1: '<strong>添加点</strong>：选择 “+ Positive” 或 “− Negative”，在画布上点击。',
+    how2: '<strong>拖动点</strong>：切到 “Drag”，按住点拖动，观察边界如何变化。',
+    how3: '<strong>关键实验</strong>：先拖动一个<strong>没有</strong>黄圈的点——边界几乎不动。再拖动一个<strong>有</strong>黄圈的支持向量——整个间隔带立刻旋转或平移。',
+    'btn-clear': '清空',
+    'btn-demo': '加载示例',
+    'h-legend': '图例',
+    'leg-pos': '正类点 (+1)',
+    'leg-neg': '负类点 (−1)',
+    'leg-sv': '支持向量（决定边界）',
+    'leg-dec': '决策边界 w·x + b = 0',
+    'leg-mar': '间隔边界 w·x + b = ±1',
+    'h-why': '为什么这很重要？',
+    why1: '对偶问题里，只有 α<sub>i</sub> > 0 的样本会出现在最终的 w 展开式中。这些样本就是支持向量。这就是“稀疏性”的几何来源——也是 SVM 预测时只需要支持向量的原因。',
+    footer: '对应笔记节点：M3.1 硬间隔原问题 · M3.2 对偶与支持向量。本演示用简化的对偶坐标上升求解，仅用于教学直觉，不是生产级求解器。',
+    statusEmpty: '请添加两类点，或点击「加载示例」。',
+    statusFail: '硬间隔不可行（两类重叠或间隔过小）。\n请把点拉开，或清空后重新加载示例。',
+    statusOk: (wNorm, margin, nSV) =>
+      `||w|| = ${wNorm}\n几何间隔 = ${margin}\n支持向量数 = ${nSV}\n决策函数：sign(w·x + b)`
+  },
+  en: {
+    title: 'Hard-Margin SVM Geometry / 硬间隔 SVM 几何演示',
+    'h-what': 'What is being shown?',
+    what1: 'A <strong>hard-margin SVM</strong> finds a line that perfectly separates two classes while making the empty strip (the margin) as wide as possible.',
+    what2: 'The two yellow lines are the margin boundaries; the points they touch are the <strong>support vectors</strong>. Only those points determine the decision line. Moving any other point (as long as it stays on the correct side) leaves the boundary unchanged.',
+    'h-how': 'How to use',
+    how1: '<strong>Add points</strong>: select “+ Positive” or “− Negative”, then click on the canvas.',
+    how2: '<strong>Drag points</strong>: switch to “Drag”, hold a point and move it; watch the boundary react.',
+    how3: '<strong>Key experiment</strong>: first drag a point <strong>without</strong> a yellow ring — the boundary barely moves. Then drag a support vector <strong>with</strong> a yellow ring — the whole margin slab rotates or shifts immediately.',
+    'btn-clear': 'Clear',
+    'btn-demo': 'Load demo',
+    'h-legend': 'Legend',
+    'leg-pos': 'Positive class (+1)',
+    'leg-neg': 'Negative class (−1)',
+    'leg-sv': 'Support vector (determines boundary)',
+    'leg-dec': 'Decision boundary w·x + b = 0',
+    'leg-mar': 'Margin boundaries w·x + b = ±1',
+    'h-why': 'Why this matters',
+    why1: 'In the dual formulation only samples with α<sub>i</sub> > 0 appear in the expansion of w. Those samples are exactly the support vectors. This is the geometric origin of sparsity — and the reason SVM prediction only needs the support vectors.',
+    footer: 'Corresponds to notes M3.1 (hard-margin primal) and M3.2 (dual & support vectors). The solver is a simplified dual coordinate ascent for intuition only, not production-grade.',
+    statusEmpty: 'Add points of both classes, or click “Load demo”.',
+    statusFail: 'Hard margin not feasible (classes overlap or too close).\nPull the points apart, or clear and reload the demo.',
+    statusOk: (wNorm, margin, nSV) =>
+      `||w|| = ${wNorm}\ngeometric margin = ${margin}\n# support vectors = ${nSV}\ndecision: sign(w·x + b)`
+  }
+};
+
+let lang = 'zh';
+function t(key) {
+  const v = i18n[lang][key];
+  return typeof v === 'function' ? v : v;
+}
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = i18n[lang][key];
+    if (typeof val === 'string') el.innerHTML = val;
+  });
+  document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  solveAndDraw();
+}
+document.getElementById('lang-zh').onclick = () => { lang = 'zh'; applyLang(); };
+document.getElementById('lang-en').onclick = () => { lang = 'en'; applyLang(); };
+
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 const status = document.getElementById('status');
 
-let points = []; // {x, y, label: +1|-1}
-let mode = 'pos'; // pos | neg | drag
+let points = [];
+let mode = 'pos';
 let dragging = null;
 
-// UI
 document.getElementById('mode-pos').onclick = () => setMode('pos');
 document.getElementById('mode-neg').onclick = () => setMode('neg');
 document.getElementById('mode-drag').onclick = () => setMode('drag');
@@ -162,10 +284,9 @@ document.getElementById('btn-demo').onclick = loadDemo;
 
 function setMode(m) {
   mode = m;
-  document.querySelectorAll('.btn-row button').forEach(b => b.classList.remove('active'));
-  if (m === 'pos') document.getElementById('mode-pos').classList.add('active');
-  if (m === 'neg') document.getElementById('mode-neg').classList.add('active');
-  if (m === 'drag') document.getElementById('mode-drag').classList.add('active');
+  ['mode-pos','mode-neg','mode-drag'].forEach(id => {
+    document.getElementById(id).classList.toggle('active', id === 'mode-' + (m === 'pos' ? 'pos' : m === 'neg' ? 'neg' : 'drag'));
+  });
   canvas.style.cursor = m === 'drag' ? 'grab' : 'crosshair';
 }
 
@@ -181,10 +302,7 @@ function loadDemo() {
 
 canvas.addEventListener('mousedown', e => {
   const p = toCanvas(e);
-  if (mode === 'drag') {
-    dragging = findNearest(p, 18);
-    return;
-  }
+  if (mode === 'drag') { dragging = findNearest(p, 18); return; }
   points.push({ x: p.x, y: p.y, label: mode === 'pos' ? 1 : -1 });
   solveAndDraw();
 });
@@ -213,58 +331,42 @@ function findNearest(p, radius) {
   return best;
 }
 
-/** Simple dual coordinate ascent for hard-margin SVM */
 function solveHardMargin(pts) {
   const n = pts.length;
   if (n < 2) return null;
   const y = pts.map(p => p.label);
   const X = pts.map(p => [p.x, p.y]);
-
-  // Gram matrix of y_i y_j <x_i, x_j>
   const K = Array.from({length:n}, () => new Array(n).fill(0));
   for (let i=0;i<n;i++) for (let j=i;j<n;j++) {
     const dot = X[i][0]*X[j][0] + X[i][1]*X[j][1];
     K[i][j] = K[j][i] = y[i]*y[j]*dot;
   }
-
   let alpha = new Array(n).fill(0);
-  const maxIter = 4000;
-  const tol = 1e-4;
-  for (let iter=0; iter<maxIter; iter++) {
+  for (let iter=0; iter<4000; iter++) {
     let maxDiff = 0;
     for (let i=0;i<n;i++) {
-      // gradient of dual: 1 - sum_j alpha_j K_ij
       let g = 1;
       for (let j=0;j<n;j++) g -= alpha[j] * K[i][j];
-      // unconstrained step toward increasing dual (coordinate ascent)
       let aNew = alpha[i] + g / (K[i][i] || 1e-8);
       if (aNew < 0) aNew = 0;
       maxDiff = Math.max(maxDiff, Math.abs(aNew - alpha[i]));
       alpha[i] = aNew;
     }
-    // project onto sum alpha y = 0 (simple correction)
     let sumAy = 0;
     for (let i=0;i<n;i++) sumAy += alpha[i]*y[i];
     if (Math.abs(sumAy) > 1e-8) {
-      // subtract a multiple of y (heuristic projection)
       const corr = sumAy / n;
-      for (let i=0;i<n;i++) {
-        alpha[i] = Math.max(0, alpha[i] - corr * y[i]);
-      }
+      for (let i=0;i<n;i++) alpha[i] = Math.max(0, alpha[i] - corr * y[i]);
     }
-    if (maxDiff < tol) break;
+    if (maxDiff < 1e-4) break;
   }
-
-  // w = sum alpha_i y_i x_i
   let w = [0,0];
   for (let i=0;i<n;i++) {
     w[0] += alpha[i]*y[i]*X[i][0];
     w[1] += alpha[i]*y[i]*X[i][1];
   }
   const wNorm = Math.hypot(w[0], w[1]);
-  if (wNorm < 1e-6) return null; // failed / not separable
-
-  // b from a free support vector (0 < alpha)
+  if (wNorm < 1e-6) return null;
   let b = 0, cnt = 0;
   for (let i=0;i<n;i++) {
     if (alpha[i] > 1e-4) {
@@ -274,15 +376,12 @@ function solveHardMargin(pts) {
   }
   if (cnt === 0) return null;
   b /= cnt;
-
-  // check feasibility roughly
   let minMargin = Infinity;
   for (let i=0;i<n;i++) {
     const f = y[i]*(w[0]*X[i][0] + w[1]*X[i][1] + b);
     minMargin = Math.min(minMargin, f);
   }
-  if (minMargin < 0.5) return null; // not really separable under hard margin
-
+  if (minMargin < 0.5) return null;
   const sv = alpha.map(a => a > 1e-4);
   return { w, b, alpha, sv, margin: 1/wNorm };
 }
@@ -291,22 +390,17 @@ function solveAndDraw() {
   const model = solveHardMargin(points);
   draw(model);
   if (!model) {
-    status.textContent = points.length < 2
-      ? 'Add points of both classes…'
-      : 'Hard-margin not feasible (classes overlap or need more separation).\nTry moving points apart or clear & reload demo.';
+    status.textContent = points.length < 2 ? t('statusEmpty') : t('statusFail');
     return;
   }
   const nSV = model.sv.filter(Boolean).length;
-  status.textContent =
-    `||w|| = ${Math.hypot(...model.w).toFixed(4)}\n` +
-    `geometric margin = ${model.margin.toFixed(4)}\n` +
-    `support vectors = ${nSV}\n` +
-    `decision: sign(w·x + b)`;
+  const wNorm = Math.hypot(...model.w).toFixed(4);
+  const margin = model.margin.toFixed(4);
+  status.textContent = i18n[lang].statusOk(wNorm, margin, nSV);
 }
 
 function draw(model) {
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  // grid
   ctx.strokeStyle = '#1c2028';
   ctx.lineWidth = 1;
   for (let x=0;x<canvas.width;x+=40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
@@ -314,24 +408,20 @@ function draw(model) {
 
   if (model) {
     const {w,b} = model;
-    // line w·x + b = 0  =>  y = (-w0 x - b)/w1
     const drawLevel = (level, color, width) => {
       ctx.strokeStyle = color;
       ctx.lineWidth = width;
       ctx.beginPath();
-      // two points far away
-      const pts = [];
-      // intersect with canvas bounds
       const candidates = [];
-      // x = 0
-      if (Math.abs(w[1]) > 1e-8) candidates.push({x:0, y: (level - b)/w[1]});
-      // x = W
-      if (Math.abs(w[1]) > 1e-8) candidates.push({x:canvas.width, y: (level - w[0]*canvas.width - b)/w[1]});
-      // y = 0
-      if (Math.abs(w[0]) > 1e-8) candidates.push({x: (level - b)/w[0], y:0});
-      // y = H
-      if (Math.abs(w[0]) > 1e-8) candidates.push({x: (level - w[1]*canvas.height - b)/w[0], y:canvas.height});
-      const valid = candidates.filter(p => p.x>=-1 && p.x<=canvas.width+1 && p.y>=-1 && p.y<=canvas.height+1);
+      if (Math.abs(w[1]) > 1e-8) {
+        candidates.push({x:0, y: (level - b)/w[1]});
+        candidates.push({x:canvas.width, y: (level - w[0]*canvas.width - b)/w[1]});
+      }
+      if (Math.abs(w[0]) > 1e-8) {
+        candidates.push({x: (level - b)/w[0], y:0});
+        candidates.push({x: (level - w[1]*canvas.height - b)/w[0], y:canvas.height});
+      }
+      const valid = candidates.filter(p => p.x>=-2 && p.x<=canvas.width+2 && p.y>=-2 && p.y<=canvas.height+2);
       if (valid.length >= 2) {
         ctx.moveTo(valid[0].x, valid[0].y);
         ctx.lineTo(valid[1].x, valid[1].y);
@@ -343,7 +433,6 @@ function draw(model) {
     drawLevel( 0, '#8ab4f8', 2.5);
   }
 
-  // points
   points.forEach((p,i) => {
     const isSV = model && model.sv[i];
     ctx.beginPath();
@@ -358,6 +447,7 @@ function draw(model) {
   });
 }
 
+applyLang();
 loadDemo();
 </script>
 </body>

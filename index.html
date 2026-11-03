@@ -15,18 +15,20 @@
   <script defer src="assets/personal.js"></script>
 </head>
 <body>
-  <main class="page" id="main">
+  <header class="topbar">
+    <button type="button" id="about-btn" class="about-btn" data-i18n="aboutBtn" aria-expanded="false" aria-controls="about-panel">Author</button>
     <div class="language-switch" aria-label="Language">
       <button type="button" data-language="en" aria-pressed="true">EN</button>
       <button type="button" data-language="zh-TW" aria-pressed="false">繁</button>
       <button type="button" data-language="es" aria-pressed="false">ES</button>
     </div>
+  </header>
 
+  <aside id="about-panel" class="about-panel" hidden>
     <article class="profile">
       <h1 data-i18n="name">Rick</h1>
       <p class="role"><span data-i18n="founder">Founder</span> @ Noesyx Lab <span aria-hidden="true">|</span> <span data-i18n="mission">AI Infrastructure for Future Human Intelligence</span></p>
       <p class="role"><span data-i18n="cofounder">Co-founder</span> @ <a href="https://www.zenno-x.com/" target="_blank" rel="noopener noreferrer">Zenno-X</a></p>
-
       <ul class="links">
         <li><span class="label" data-i18n="emailLabel">Email</span> <a href="mailto:beckett114191@gmail.com">beckett114191@gmail.com</a></li>
         <li><span class="label">GitHub</span> <a href="https://github.com/Beckettsapere824" target="_blank" rel="noopener noreferrer">https://github.com/Beckettsapere824</a></li>
@@ -36,11 +38,48 @@
         <li><span class="label" data-i18n="wechatLabel">WeChat</span> <span>ZYH-1-1</span></li>
         <li><span class="label" data-i18n="projectLabel">Project</span> <a href="https://egsp-web.vercel.app/" target="_blank" rel="noopener noreferrer">https://egsp-web.vercel.app/</a></li>
         <li><span class="label">Library</span> <a href="https://github.com/Beckettsapere824/Library" target="_blank" rel="noopener noreferrer">https://github.com/Beckettsapere824/Library</a></li>
-        <li><span class="label">ML Study</span> <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">c-machine-learning</a> · <a href="/ml-demos/svm-margin.html">SVM margin demo</a></li>
+        <li><span class="label">ML Study</span> <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">c-machine-learning</a></li>
       </ul>
-
       <p class="hiring"><a href="https://www.linkedin.com/company/lumenplay/" target="_blank" rel="noopener noreferrer" data-i18n="hiring">Noesyx Lab is Hiring | Feel Free to Email Me for Connection &amp; Collaboration</a></p>
     </article>
+  </aside>
+
+  <main class="home" id="main">
+    <nav class="home-links" aria-label="Primary">
+      <a href="https://github.com/Beckettsapere824" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span><span data-i18n="wechatLabel">WeChat</span> ZYH-1-1</span>
+      <a href="https://github.com/Beckettsapere824/Library" target="_blank" rel="noopener noreferrer">Library</a>
+      <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">ML Study</a>
+    </nav>
+
+    <div class="quad">
+      <section class="quad-cell">
+        <h2 data-i18n="quadLibrary">Library</h2>
+        <ul>
+          <li><a href="https://github.com/Beckettsapere824/Library" target="_blank" rel="noopener noreferrer">Library repo</a></li>
+          <li><a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">ML Study</a></li>
+          <li><a href="/ml-notes/">ML Notes</a></li>
+          <li><a href="/ml-demos/knn-voronoi.html">k-NN demo</a></li>
+          <li><a href="/ml-demos/svm-margin.html">SVM margin demo</a></li>
+        </ul>
+      </section>
+      <section class="quad-cell">
+        <h2 data-i18n="quadResearch">Research</h2>
+        <p class="muted" data-i18n="quadEmpty">—</p>
+      </section>
+      <section class="quad-cell">
+        <h2 data-i18n="quadProjects">Projects</h2>
+        <ul>
+          <li><a href="https://egsp-web.vercel.app/" target="_blank" rel="noopener noreferrer">EGSP</a></li>
+          <li><a href="https://www.zenno-x.com/" target="_blank" rel="noopener noreferrer">Zenno-X</a></li>
+          <li><a href="/venture-office/">Venture Office</a></li>
+        </ul>
+      </section>
+      <section class="quad-cell">
+        <h2 data-i18n="quadMore">More</h2>
+        <p class="muted" data-i18n="quadEmpty">—</p>
+      </section>
+    </div>
   </main>
 </body>
 </html>

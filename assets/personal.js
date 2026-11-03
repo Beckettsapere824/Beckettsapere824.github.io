@@ -59,40 +59,55 @@
     if (!btn || !panel) return;
 
     let pinned = false;
-    let hoverTimer = null;
+    let openTimer = null;
+    let closeTimer = null;
 
     function openPanel() {
+      clearTimeout(closeTimer);
+      closeTimer = null;
       panel.hidden = false;
       btn.setAttribute('aria-expanded', 'true');
     }
     function closePanel() {
+      clearTimeout(openTimer);
+      openTimer = null;
       panel.hidden = true;
       btn.setAttribute('aria-expanded', 'false');
     }
+    function scheduleClose() {
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => {
+        if (!pinned) closePanel();
+      }, 200);
+    }
 
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       pinned = !pinned;
       if (pinned) openPanel();
       else closePanel();
     });
 
     btn.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
       if (pinned) return;
-      hoverTimer = setTimeout(() => {
+      clearTimeout(openTimer);
+      openTimer = setTimeout(() => {
         if (!pinned) openPanel();
       }, 700);
     });
     btn.addEventListener('mouseleave', () => {
-      clearTimeout(hoverTimer);
-      hoverTimer = null;
-      if (!pinned) closePanel();
+      clearTimeout(openTimer);
+      openTimer = null;
+      if (!pinned) scheduleClose();
     });
 
     panel.addEventListener('mouseenter', () => {
-      clearTimeout(hoverTimer);
+      clearTimeout(closeTimer);
+      clearTimeout(openTimer);
     });
     panel.addEventListener('mouseleave', () => {
-      if (!pinned) closePanel();
+      if (!pinned) scheduleClose();
     });
   }
 

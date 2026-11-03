@@ -9,10 +9,9 @@
     body { margin: 0; font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif; background: #fff; color: #111; }
     header { padding: 12px 16px; border-bottom: 1px solid #ddd; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
     h1 { font-size: 1.1rem; margin: 0; font-weight: 600; }
-    select { font-size: 0.95rem; padding: 4px 8px; }
     a { color: #06c; }
     #layout { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 52px); }
-    @media (max-width: 720px) { #layout { grid-template-columns: 1fr; } nav { border-bottom: 1px solid #ddd; } }
+    @media (max-width: 720px) { #layout { grid-template-columns: 1fr; } }
     nav { border-right: 1px solid #ddd; padding: 12px; overflow: auto; font-size: 0.88rem; }
     nav a { display: block; padding: 3px 0; text-decoration: none; color: #333; }
     nav a:hover, nav a.active { color: #06c; font-weight: 600; }
@@ -25,6 +24,7 @@
     main code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; }
     main blockquote { margin: 0.8em 0; padding: 0.4em 0.9em; border-left: 3px solid #ccc; color: #444; }
     .err { color: #b00; background: #fff0f0; padding: 8px; }
+    .katex-error { color: #b00 !important; }
   </style>
 </head>
 <body>
@@ -32,7 +32,7 @@
     <h1>ML Notes · live KaTeX</h1>
     <a href="../">Home</a>
     <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank">Source repo</a>
-    <span style="color:#666;font-size:0.85rem;">Plain white preview for formula QA</span>
+    <span style="color:#666;font-size:0.85rem;">Plain white · math protected from marked</span>
   </header>
   <div id="layout">
     <nav id="nav"></nav>
@@ -40,7 +40,6 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/marked@13.0.3/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script>
     const NODES = [
       "M0.1","M0.2","M0.3","M0.4","M0.5","M0.6","M0.7","M0.8","M0.9","M0.10","M0.11","M0.12",
@@ -64,26 +63,54 @@
       nav.appendChild(a);
     });
 
+    /** Extract math BEFORE marked so _ and \\ are not eaten as emphasis/escapes. */
+    function extractMath(src) {
+      const slots = [];
+      // display $$...$$ first
+      let s = src.replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => {
+        const i = slots.length;
+        slots.push({ display: true, tex: tex.trim() });
+        return `\n\n@@MATH${i}@@\n\n`;
+      });
+      // inline $...$ (no newlines)
+      s = s.replace(/\$([^\$\n]+?)\$/g, (_, tex) => {
+        const i = slots.length;
+        slots.push({ display: false, tex: tex.trim() });
+        return `@@MATH${i}@@`;
+      });
+      return { s, slots };
+    }
+
+    function renderWithMath(md) {
+      const { s, slots } = extractMath(md);
+      let html = marked.parse(s);
+      html = html.replace(/@@MATH(\d+)@@/g, (_, i) => {
+        const slot = slots[Number(i)];
+        if (!slot) return '';
+        try {
+          return katex.renderToString(slot.tex, {
+            displayMode: slot.display,
+            throwOnError: false,
+            strict: 'ignore'
+          });
+        } catch (e) {
+          return `<span class="katex-error">${e.message}: ${slot.tex}</span>`;
+        }
+      });
+      return html;
+    }
+
     async function load(id) {
       location.hash = id;
       nav.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.id === id));
       content.innerHTML = '<p>Loading ' + id + '…</p>';
       try {
         const res = await fetch('md/' + id + '.md', { cache: 'no-store' });
-        if (!res.ok) throw new Error('HTTP ' + res.status + ' — file not mirrored yet under ml-notes/md/');
+        if (!res.ok) throw new Error('HTTP ' + res.status + ' — not mirrored under ml-notes/md/');
         const text = await res.text();
-        content.innerHTML = marked.parse(text);
-        renderMathInElement(content, {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false}
-          ],
-          throwOnError: false,
-          strict: 'ignore'
-        });
+        content.innerHTML = renderWithMath(text);
       } catch (e) {
-        content.innerHTML = '<div class="err">' + id + ': ' + e.message +
-          '<br>Mirror the node to <code>ml-notes/md/' + id + '.md</code> on this site.</div>';
+        content.innerHTML = '<div class="err">' + id + ': ' + e.message + '</div>';
       }
     }
 

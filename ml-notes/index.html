@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ML Notes · KaTeX preview</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <style>
+    body { margin: 0; font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif; background: #fff; color: #111; }
+    header { padding: 12px 16px; border-bottom: 1px solid #ddd; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    h1 { font-size: 1.1rem; margin: 0; font-weight: 600; }
+    select { font-size: 0.95rem; padding: 4px 8px; }
+    a { color: #06c; }
+    #layout { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 52px); }
+    @media (max-width: 720px) { #layout { grid-template-columns: 1fr; } nav { border-bottom: 1px solid #ddd; } }
+    nav { border-right: 1px solid #ddd; padding: 12px; overflow: auto; font-size: 0.88rem; }
+    nav a { display: block; padding: 3px 0; text-decoration: none; color: #333; }
+    nav a:hover, nav a.active { color: #06c; font-weight: 600; }
+    main { padding: 20px 24px 48px; max-width: 820px; line-height: 1.6; }
+    main h1 { font-size: 1.45rem; margin-top: 0; }
+    main h2 { font-size: 1.15rem; margin-top: 1.6em; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+    main table { border-collapse: collapse; width: 100%; margin: 0.8em 0; font-size: 0.92rem; }
+    main th, main td { border: 1px solid #ccc; padding: 6px 8px; vertical-align: top; }
+    main pre { background: #f6f8fa; padding: 12px; overflow: auto; font-size: 0.85rem; }
+    main code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; }
+    main blockquote { margin: 0.8em 0; padding: 0.4em 0.9em; border-left: 3px solid #ccc; color: #444; }
+    .err { color: #b00; background: #fff0f0; padding: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ML Notes · live KaTeX</h1>
+    <a href="../">Home</a>
+    <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank">Source repo</a>
+    <span style="color:#666;font-size:0.85rem;">Plain white preview for formula QA</span>
+  </header>
+  <div id="layout">
+    <nav id="nav"></nav>
+    <main id="content">Select a node.</main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/marked@13.0.3/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script>
+    const NODES = [
+      "M0.1","M0.2","M0.3","M0.4","M0.5","M0.6","M0.7","M0.8","M0.9","M0.10","M0.11","M0.12",
+      "M1.1","M1.2","M1.3",
+      "M2.1","M2.2","M2.3","M2.4","M2.5","M2.6","M2.7","M2.8",
+      "M3.1","M3.2","M3.3","M3.4","M3.5",
+      "M4.1","M4.2","M4.3","M4.4","M4.5",
+      "M5.1","M5.2","M5.3","M5.4",
+      "M6.1","M6.2","M6.3",
+      "M7.1","M7.2","M7.3","M7.4",
+      "M8.1","M8.2","M8.3","M8.4"
+    ];
+    const nav = document.getElementById('nav');
+    const content = document.getElementById('content');
+    NODES.forEach(id => {
+      const a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = id;
+      a.dataset.id = id;
+      a.onclick = (e) => { e.preventDefault(); load(id); };
+      nav.appendChild(a);
+    });
+
+    async function load(id) {
+      location.hash = id;
+      nav.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.id === id));
+      content.innerHTML = '<p>Loading ' + id + '…</p>';
+      try {
+        const res = await fetch('md/' + id + '.md', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status + ' — file not mirrored yet under ml-notes/md/');
+        const text = await res.text();
+        content.innerHTML = marked.parse(text);
+        renderMathInElement(content, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false,
+          strict: 'ignore'
+        });
+      } catch (e) {
+        content.innerHTML = '<div class="err">' + id + ': ' + e.message +
+          '<br>Mirror the node to <code>ml-notes/md/' + id + '.md</code> on this site.</div>';
+      }
+    }
+
+    const initial = location.hash.replace(/^#/, '') || 'M0.1';
+    load(NODES.includes(initial) ? initial : 'M0.1');
+  </script>
+</body>
+</html>

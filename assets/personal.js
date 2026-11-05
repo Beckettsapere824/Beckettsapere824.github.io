@@ -5,21 +5,21 @@
       cofounder: 'Co-founder', emailLabel: 'Email', projectLabel: 'Project', wechatLabel: 'WeChat',
       hiring: 'Noesyx Lab is Hiring | Feel Free to Email Me for Connection & Collaboration',
       aboutBtn: 'Author', quadLibrary: 'Library', quadResearch: 'Research', quadProjects: 'Projects',
-      quadMore: 'More', quadEmpty: '—'
+      quadMore: 'More', quadAbout: 'About Me', quadEmpty: '—', backHome: '← Home'
     },
     'zh-TW': {
       title: 'Rick', name: 'Rick', founder: '創辦人', mission: '為未來人類智慧打造的 AI 基礎設施',
       cofounder: '共同創辦人', emailLabel: '電子郵件', projectLabel: '專案', wechatLabel: 'WeChat',
       hiring: 'Noesyx Lab 正在招募｜歡迎來信交流與合作',
       aboutBtn: '作者介紹', quadLibrary: '資料庫', quadResearch: '研究成果', quadProjects: '項目',
-      quadMore: '更多', quadEmpty: '—'
+      quadMore: '更多', quadAbout: '關於我', quadEmpty: '—', backHome: '← 首頁'
     },
     es: {
       title: 'Rick', name: 'Rick', founder: 'Fundador', mission: 'Infraestructura de IA para la inteligencia humana del futuro',
       cofounder: 'Cofundador', emailLabel: 'Correo', projectLabel: 'Proyecto', wechatLabel: 'WeChat',
       hiring: 'Noesyx Lab está contratando | Escríbeme para conectar y colaborar',
       aboutBtn: 'Autor', quadLibrary: 'Biblioteca', quadResearch: 'Investigación', quadProjects: 'Proyectos',
-      quadMore: 'Más', quadEmpty: '—'
+      quadMore: 'Más', quadAbout: 'Sobre mí', quadEmpty: '—', backHome: '← Inicio'
     }
   };
   const languageNames = { en: 'EN', 'zh-TW': '繁', es: 'ES' };

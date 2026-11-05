@@ -32,7 +32,7 @@
     <h1>ML Notes · live KaTeX</h1>
     <a href="../">Home</a>
     <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank">Source repo</a>
-    <span style="color:#666;font-size:0.85rem;">Plain white · math protected from marked</span>
+    <span style="color:#666;font-size:0.85rem;">Plain white · math protected · papers at bottom of nav</span>
   </header>
   <div id="layout">
     <nav id="nav"></nav>
@@ -50,29 +50,28 @@
       "M5.1","M5.2","M5.3","M5.4",
       "M6.1","M6.2","M6.3",
       "M7.1","M7.2","M7.3","M7.4",
-      "M8.1","M8.2","M8.3","M8.4"
+      "M8.1","M8.2","M8.3","M8.4",
+      "PAPER-spectral-clustering"
     ];
+    const NODE_LABELS = { "PAPER-spectral-clustering": "Paper · NJW spectral" };
     const nav = document.getElementById('nav');
     const content = document.getElementById('content');
     NODES.forEach(id => {
       const a = document.createElement('a');
       a.href = '#' + id;
-      a.textContent = id;
+      a.textContent = (typeof NODE_LABELS !== 'undefined' && NODE_LABELS[id]) ? NODE_LABELS[id] : id;
       a.dataset.id = id;
       a.onclick = (e) => { e.preventDefault(); load(id); };
       nav.appendChild(a);
     });
 
-    /** Extract math BEFORE marked so _ and \\ are not eaten as emphasis/escapes. */
     function extractMath(src) {
       const slots = [];
-      // display $$...$$ first
       let s = src.replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => {
         const i = slots.length;
         slots.push({ display: true, tex: tex.trim() });
         return `\n\n@@MATH${i}@@\n\n`;
       });
-      // inline $...$ (no newlines)
       s = s.replace(/\$([^\$\n]+?)\$/g, (_, tex) => {
         const i = slots.length;
         slots.push({ display: false, tex: tex.trim() });

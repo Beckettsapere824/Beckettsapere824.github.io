@@ -11,8 +11,9 @@
   <meta property="og:url" content="https://beckettsapere824.github.io/">
   <link rel="canonical" href="https://beckettsapere824.github.io/">
   <title>Rick</title>
-  <link rel="stylesheet" href="assets/styles.css?v=4">
-  <script defer src="assets/personal.js?v=4"></script>
+  <link rel="stylesheet" href="assets/styles.css?v=5">
+  <script defer src="assets/personal.js?v=5"></script>
+  <script defer src="assets/pool.js?v=5"></script>
 </head>
 <body>
   <header class="topbar">
@@ -34,9 +35,9 @@
         <li><span class="label">GitHub</span> <a href="https://github.com/Beckettsapere824" target="_blank" rel="noopener noreferrer">https://github.com/Beckettsapere824</a></li>
         <li><span class="label">LinkedIn</span> <a href="https://www.linkedin.com/in/yihan-zhou-060b32383" target="_blank" rel="noopener noreferrer">linkedin.com/in/yihan-zhou-060b32383</a></li>
         <li><span class="label">X</span> <a href="https://x.com/rickxofficial" target="_blank" rel="noopener noreferrer">x.com/rickxofficial</a></li>
-        <li><span class="label">WhatsApp</span> <a href="https://wa.me/qr/5CZ4AMTRRULUI1" target="_blank" rel="noopener noreferrer">wa.me/qr/5CZ4AMTRRULUI1</a></li>
-        <li><span class="label" data-i18n="wechatLabel">WeChat</span> <span>ZYH-1-1</span></li>
+        <li><span class="label">WhatsApp</span> <a href="https://wa.me/85264341914" target="_blank" rel="noopener noreferrer">+852 6434 1914</a></li>
         <li><span class="label" data-i18n="projectLabel">Project</span> <a href="https://egsp-web.vercel.app/" target="_blank" rel="noopener noreferrer">https://egsp-web.vercel.app/</a></li>
+        <li><span class="label" data-i18n="wechatLabel">WeChat</span> <span>ZYH-1-1</span></li>
         <li><span class="label">Library</span> <a href="https://github.com/Beckettsapere824/Library" target="_blank" rel="noopener noreferrer">https://github.com/Beckettsapere824/Library</a></li>
         <li><span class="label">ML Study</span> <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">c-machine-learning</a></li>
       </ul>
@@ -53,15 +54,11 @@
     </nav>
 
     <div class="quad">
-      <section class="quad-cell">
-        <h2 data-i18n="quadLibrary">Library</h2>
-        <ul>
-          <li><a href="https://github.com/Beckettsapere824/Library" target="_blank" rel="noopener noreferrer">Library repo</a></li>
-          <li><a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">ML Study</a></li>
-          <li><a href="/ml-notes/">ML Notes</a></li>
-          <li><a href="/ml-demos/knn-voronoi.html">k-NN demo</a></li>
-          <li><a href="/ml-demos/svm-margin.html">SVM margin demo</a></li>
-        </ul>
+      <section class="quad-cell pool-cell" id="about-pool">
+        <a href="/about.html" class="pool-link" aria-label="About Me">
+          <canvas id="pool-canvas" class="pool-canvas" width="600" height="360"></canvas>
+          <span class="pool-label" data-i18n="quadAbout">About Me</span>
+        </a>
       </section>
       <section class="quad-cell">
         <h2 data-i18n="quadResearch">Research</h2>
@@ -76,8 +73,14 @@
         </ul>
       </section>
       <section class="quad-cell">
-        <h2 data-i18n="quadMore">More</h2>
-        <p class="muted" data-i18n="quadEmpty">—</p>
+        <h2 data-i18n="quadLibrary">Library</h2>
+        <ul>
+          <li><a href="https://github.com/Beckettsapere824/Library" target="_blank" rel="noopener noreferrer">Library repo</a></li>
+          <li><a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">ML Study</a></li>
+          <li><a href="/ml-notes/">ML Notes</a></li>
+          <li><a href="/ml-demos/knn-voronoi.html">k-NN demo</a></li>
+          <li><a href="/ml-demos/svm-margin.html">SVM margin demo</a></li>
+        </ul>
       </section>
     </div>
   </main>

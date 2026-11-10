@@ -31,7 +31,8 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/marked@13.0.3/marked.min.js"></script>
   <script>
-    const NODES = ["post-cofounder-d2a9e85b","post-eth-fe953493","thought-2d61a088"];
+    // Public render list only — thought-2d61a088 intentionally omitted
+    const NODES = ["post-cofounder-d2a9e85b", "post-eth-fe953493"];
     const nav = document.getElementById('nav');
     const content = document.getElementById('content');
     NODES.forEach(id => {
@@ -41,6 +42,7 @@
       nav.appendChild(a);
     });
     async function load(id) {
+      if (!NODES.includes(id)) id = NODES[0];
       location.hash = id;
       nav.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.id === id));
       content.innerHTML = '<p>Loading…</p>';
@@ -53,7 +55,7 @@
       }
     }
     const initial = location.hash.replace(/^#/, '') || NODES[0];
-    if (initial) load(initial);
+    load(NODES.includes(initial) ? initial : NODES[0]);
   </script>
 </body>
 </html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memo · structured memory</title>
+  <style>
+    body { margin: 0; font-family: system-ui, "PingFang SC", sans-serif; background: #fff; color: #111; }
+    header { padding: 12px 16px; border-bottom: 1px solid #ddd; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    h1 { font-size: 1.1rem; margin: 0; }
+    a { color: #06c; }
+    #layout { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 52px); }
+    @media (max-width: 720px) { #layout { grid-template-columns: 1fr; } }
+    nav { border-right: 1px solid #ddd; padding: 12px; overflow: auto; font-size: 0.88rem; }
+    nav a { display: block; padding: 3px 0; text-decoration: none; color: #333; }
+    nav a:hover, nav a.active { color: #06c; font-weight: 600; }
+    main { padding: 20px 24px 48px; max-width: 820px; line-height: 1.65; }
+    main h1 { font-size: 1.4rem; margin-top: 0; }
+    main h2 { font-size: 1.15rem; margin-top: 1.5em; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+    main pre { background: #f6f8fa; padding: 12px; overflow: auto; }
+    .err { color: #b00; background: #fff0f0; padding: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Memo · structured memory</h1>
+    <a href="../">Home</a>
+    <a href="https://github.com/Beckettsapere824/ex-memo-rick">Source</a>
+  </header>
+  <div id="layout">
+    <nav id="nav"></nav>
+    <main id="content">Select a node.</main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/marked@13.0.3/marked.min.js"></script>
+  <script>
+    const NODES = ["post-cofounder-d2a9e85b", "post-eth-fe953493", "thought-2d61a088"];
+    const nav = document.getElementById('nav');
+    const content = document.getElementById('content');
+    NODES.forEach(id => {
+      const a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = id;
+      a.dataset.id = id;
+      a.onclick = (e) => { e.preventDefault(); load(id); };
+      nav.appendChild(a);
+    });
+    async function load(id) {
+      location.hash = id;
+      nav.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.id === id));
+      content.innerHTML = '<p>Loading…</p>';
+      try {
+        const res = await fetch('md/' + id + '.md', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        content.innerHTML = marked.parse(await res.text());
+      } catch (e) {
+        content.innerHTML = '<div class="err">' + e.message + '</div>';
+      }
+    }
+    const initial = location.hash.replace(/^#/, '') || (NODES[0] || '');
+    if (initial) load(initial);
+  </script>
+</body>
+</html>

@@ -3,56 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Console — projects, notes, demos, memory tests.">
+  <meta name="description" content="Console — projects, notes, demos, memory.">
   <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://beckettsapere824.github.io/console/">
   <title>Console · Rick</title>
-  <link rel="stylesheet" href="../assets/styles.css?v=8">
-  <style>
-    .shell { max-width: 42rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
-    .shell h1 { margin: 0 0 .5rem; font-size: 1.75rem; font-weight: 500; letter-spacing: -.03em; }
-    .shell .lead { color: #555; margin: 0 0 2rem; line-height: 1.65; font-size: .95rem; }
-    .shell h2 { margin: 2rem 0 .75rem; font-size: .8rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: #888; }
-    .shell ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .65rem; }
-    .shell li { font-size: .92rem; line-height: 1.5; }
-    .shell .meta { color: #888; font-size: .85rem; }
-    .topnav { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: .9rem; }
-  </style>
+  <link rel="stylesheet" href="../assets/site.css?v=10">
 </head>
 <body>
-  <header class="topbar">
-    <nav class="topnav" aria-label="Site">
+  <header class="bar">
+    <a class="brand" href="/">Rick</a>
+    <nav>
       <a href="/">Home</a>
       <a href="/connect/">Connect</a>
-      <a href="/console/">Console</a>
-      <a href="/about.html">About</a>
+      <a href="/console/" aria-current="page">Console</a>
     </nav>
   </header>
-  <main class="shell">
-    <h1>Console</h1>
-    <p class="lead">Project and test surface. Pull up notes, demos, and agent-memory exports without changing their original URLs.</p>
+  <main class="page">
+    <p class="kicker">Console</p>
+    <h1>Projects &amp; tests</h1>
+    <p class="lead">Single project surface for humans and agents. Tools below are assets; entry is always this page.</p>
 
-    <h2>On this site</h2>
-    <ul>
-      <li><a href="/memo/">Memo</a> <span class="meta">— structured memory (ex-memo-rick)</span></li>
-      <li><a href="/ml-notes/">ML Notes</a></li>
-      <li><a href="/ml-demos/knn-voronoi.html">k-NN · Voronoi demo</a></li>
-      <li><a href="/ml-demos/svm-margin.html">SVM margin demo</a></li>
-      <li><a href="/venture-office/">Venture Office</a> <span class="meta">— also linked from Connect</span></li>
-    </ul>
+    <section>
+      <h2>Memory (agent-native)</h2>
+      <ul class="list">
+        <li><span>Memo viewer</span> <a href="/memo/">/memo/</a> — structured nodes from <a href="https://github.com/Beckettsapere824/ex-memo-rick" target="_blank" rel="noopener noreferrer">ex-memo-rick</a></li>
+      </ul>
+    </section>
 
-    <h2>Repositories</h2>
-    <ul>
-      <li><a href="https://github.com/Beckettsapere824/Library" target="_blank" rel="noopener noreferrer">Library</a></li>
-      <li><a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">c-machine-learning</a></li>
-      <li><a href="https://github.com/Beckettsapere824/ex-memo-rick" target="_blank" rel="noopener noreferrer">ex-memo-rick</a> <span class="meta">— agent-native memory backend</span></li>
-      <li><a href="https://github.com/Beckettsapere824" target="_blank" rel="noopener noreferrer">All GitHub</a></li>
-    </ul>
+    <section>
+      <h2>Machine learning</h2>
+      <ul class="list">
+        <li><span>ML Notes</span> <a href="/ml-notes/">/ml-notes/</a> — KaTeX notes (M0–M8 + paper)</li>
+        <li><span>k-NN demo</span> <a href="/ml-demos/knn-voronoi.html">Voronoi</a></li>
+        <li><span>SVM demo</span> <a href="/ml-demos/svm-margin.html">margin</a></li>
+        <li><span>Study repo</span> <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener noreferrer">c-machine-learning</a></li>
+      </ul>
+    </section>
 
-    <h2>Live products</h2>
-    <ul>
-      <li><a href="https://egsp-web.vercel.app/" target="_blank" rel="noopener noreferrer">EGSP / Lumen Play</a></li>
-      <li><a href="https://www.zenno-x.com/" target="_blank" rel="noopener noreferrer">Zenno-X</a></li>
-    </ul>
+    <section>
+      <h2>Library &amp; code</h2>
+      <ul class="list">
+        <li><span>Library</span> <a href="https://github.com/Beckettsapere824/Library" target="_blank" rel="noopener noreferrer">github.com/…/Library</a></li>
+        <li><span>All repos</span> <a href="https://github.com/Beckettsapere824" target="_blank" rel="noopener noreferrer">GitHub profile</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Live products</h2>
+      <ul class="list">
+        <li><span>EGSP / Lumen Play</span> <a href="https://egsp-web.vercel.app/" target="_blank" rel="noopener noreferrer">egsp-web.vercel.app</a></li>
+        <li><span>Zenno-X</span> <a href="https://www.zenno-x.com/" target="_blank" rel="noopener noreferrer">zenno-x.com</a></li>
+      </ul>
+    </section>
   </main>
+  <footer class="foot">Only three pages: <a href="/">/</a> · <a href="/connect/">/connect</a> · <a href="/console/">/console</a></footer>
 </body>
-</html>
+html>

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ML Notes · KaTeX preview</title>
+  <title>ML Notes · Console asset</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <style>
-    body { margin: 0; font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif; background: #fff; color: #111; }
+    body { margin: 0; font-family: system-ui, "PingFang SC", sans-serif; background: #fff; color: #111; }
     header { padding: 12px 16px; border-bottom: 1px solid #ddd; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    h1 { font-size: 1.1rem; margin: 0; font-weight: 600; }
+    h1 { font-size: 1.05rem; margin: 0; font-weight: 600; }
     a { color: #06c; }
     #layout { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 52px); }
     @media (max-width: 720px) { #layout { grid-template-columns: 1fr; } }
@@ -16,23 +16,17 @@
     nav a { display: block; padding: 3px 0; text-decoration: none; color: #333; }
     nav a:hover, nav a.active { color: #06c; font-weight: 600; }
     main { padding: 20px 24px 48px; max-width: 820px; line-height: 1.6; }
-    main h1 { font-size: 1.45rem; margin-top: 0; }
     main h2 { font-size: 1.15rem; margin-top: 1.6em; border-bottom: 1px solid #eee; padding-bottom: 4px; }
-    main table { border-collapse: collapse; width: 100%; margin: 0.8em 0; font-size: 0.92rem; }
-    main th, main td { border: 1px solid #ccc; padding: 6px 8px; vertical-align: top; }
     main pre { background: #f6f8fa; padding: 12px; overflow: auto; font-size: 0.85rem; }
-    main code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; }
-    main blockquote { margin: 0.8em 0; padding: 0.4em 0.9em; border-left: 3px solid #ccc; color: #444; }
     .err { color: #b00; background: #fff0f0; padding: 8px; }
-    .katex-error { color: #b00 !important; }
   </style>
 </head>
 <body>
   <header>
-    <h1>ML Notes · live KaTeX</h1>
-    <a href="../">Home</a>
-    <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank">Source repo</a>
-    <span style="color:#666;font-size:0.85rem;">Plain white · math protected · papers at bottom of nav</span>
+    <h1>ML Notes</h1>
+    <a href="/console/">Console</a>
+    <a href="/">Home</a>
+    <a href="https://github.com/Beckettsapere824/c-machine-learning" target="_blank" rel="noopener">Source</a>
   </header>
   <div id="layout">
     <nav id="nav"></nav>
@@ -59,60 +53,44 @@
     NODES.forEach(id => {
       const a = document.createElement('a');
       a.href = '#' + id;
-      a.textContent = (typeof NODE_LABELS !== 'undefined' && NODE_LABELS[id]) ? NODE_LABELS[id] : id;
+      a.textContent = NODE_LABELS[id] || id;
       a.dataset.id = id;
       a.onclick = (e) => { e.preventDefault(); load(id); };
       nav.appendChild(a);
     });
-
     function extractMath(src) {
       const slots = [];
       let s = src.replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => {
-        const i = slots.length;
-        slots.push({ display: true, tex: tex.trim() });
-        return `\n\n@@MATH${i}@@\n\n`;
+        const i = slots.length; slots.push({ display: true, tex: tex.trim() }); return `\n\n@@MATH${i}@@\n\n`;
       });
       s = s.replace(/\$([^\$\n]+?)\$/g, (_, tex) => {
-        const i = slots.length;
-        slots.push({ display: false, tex: tex.trim() });
-        return `@@MATH${i}@@`;
+        const i = slots.length; slots.push({ display: false, tex: tex.trim() }); return `@@MATH${i}@@`;
       });
       return { s, slots };
     }
-
     function renderWithMath(md) {
       const { s, slots } = extractMath(md);
       let html = marked.parse(s);
       html = html.replace(/@@MATH(\d+)@@/g, (_, i) => {
         const slot = slots[Number(i)];
         if (!slot) return '';
-        try {
-          return katex.renderToString(slot.tex, {
-            displayMode: slot.display,
-            throwOnError: false,
-            strict: 'ignore'
-          });
-        } catch (e) {
-          return `<span class="katex-error">${e.message}: ${slot.tex}</span>`;
-        }
+        try { return katex.renderToString(slot.tex, { displayMode: slot.display, throwOnError: false, strict: 'ignore' }); }
+        catch (e) { return `<span class="err">${e.message}</span>`; }
       });
       return html;
     }
-
     async function load(id) {
       location.hash = id;
       nav.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.id === id));
-      content.innerHTML = '<p>Loading ' + id + '…</p>';
+      content.innerHTML = '<p>Loading…</p>';
       try {
         const res = await fetch('md/' + id + '.md', { cache: 'no-store' });
-        if (!res.ok) throw new Error('HTTP ' + res.status + ' — not mirrored under ml-notes/md/');
-        const text = await res.text();
-        content.innerHTML = renderWithMath(text);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        content.innerHTML = renderWithMath(await res.text());
       } catch (e) {
-        content.innerHTML = '<div class="err">' + id + ': ' + e.message + '</div>';
+        content.innerHTML = '<div class="err">' + e.message + '</div>';
       }
     }
-
     const initial = location.hash.replace(/^#/, '') || 'M0.1';
     load(NODES.includes(initial) ? initial : 'M0.1');
   </script>

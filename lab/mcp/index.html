@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MCP · Noesyx Lab</title>
+  <style>
+    :root { --fg:#111; --muted:#555; --line:#e6e6e6; --bg:#fff; --accent:#0b57d0; }
+    body { margin:0; font-family: system-ui, "PingFang SC", sans-serif; color:var(--fg); background:var(--bg); line-height:1.55; }
+    a { color: var(--accent); text-decoration:none; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid var(--line); }
+    header nav { display:flex; gap:16px; font-size:0.92rem; }
+    main { max-width:640px; margin:0 auto; padding:40px 20px 80px; }
+    h1 { font-size:1.35rem; margin:0 0 8px; }
+    h2 { font-size:1rem; margin:28px 0 8px; }
+    p, li { color: var(--muted); font-size:0.95rem; }
+    code, pre { font-family: ui-monospace, monospace; font-size:0.82rem; }
+    pre { background:#f6f6f6; padding:12px; border-radius:8px; overflow:auto; color:#111; }
+    .ok { border-left:3px solid #0a0; padding-left:12px; margin:16px 0; }
+    .warn { border-left:3px solid #c80; padding-left:12px; margin:16px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong><a href="/lab/" style="color:inherit;text-decoration:none">Noesyx Lab</a></strong>
+    <nav>
+      <a href="/lab/">Home</a>
+      <a href="/lab/account/">Account</a>
+      <a href="/lab/mcp/">MCP</a>
+      <a href="/memo/">Memo</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Connect MCP (Grok)</h1>
+    <p>Grok custom MCP: name + server URL. Same pattern as other remote MCP servers.</p>
+
+    <div class="ok">
+      <strong>Feasible:</strong> Website account (user + password) → issue <em>per-user API token</em> → user pastes MCP URL + token into Grok.
+    </div>
+    <div class="warn">
+      <strong>Not best:</strong> Putting the website password into the MCP client. Use a rotatable token. Shared/org tokens are worse.
+    </div>
+
+    <h2>Grok steps</h2>
+    <ol>
+      <li>Open Grok MCP / connectors → add custom server</li>
+      <li>Name: <code>noesyx-memory</code> (any label)</li>
+      <li>URL: <code>https://noesyx-lab.com/mcp</code> (live after backend + DNS)</li>
+      <li>Auth: Bearer / header with your <strong>API token</strong> from Account (not password)</li>
+    </ol>
+
+    <h2>Example config shape</h2>
+    <pre>{
+  "name": "noesyx-memory",
+  "url": "https://noesyx-lab.com/mcp",
+  "headers": {
+    "Authorization": "Bearer nl_xxx_your_token"
+  }
+}</pre>
+
+    <h2>What the server should expose (later)</h2>
+    <ul>
+      <li><code>search_nodes</code> / <code>read_node</code></li>
+      <li><code>list_tasks</code></li>
+      <li><code>append_inbox</code> (optional write)</li>
+    </ul>
+    <p>Until the MCP process is deployed, this page is documentation only. Memo HTML preview stays at <a href="/memo/">/memo/</a>.</p>
+
+    <h2>DNS</h2>
+    <p>Point <code>noesyx-lab.com</code> to this Pages host (or your Vercel/Cloudflare app). Preview path today: <code>https://beckettsapere824.github.io/lab/</code></p>
+  </main>
+</body>
+</html>

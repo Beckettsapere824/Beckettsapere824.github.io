@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noesyx Lab</title>
+  <style>
+    :root { --fg:#111; --muted:#555; --line:#e6e6e6; --bg:#fff; --accent:#0b57d0; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, "PingFang SC", "Segoe UI", sans-serif; color:var(--fg); background:var(--bg); line-height:1.55; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid var(--line); }
+    header nav { display:flex; gap:16px; font-size:0.92rem; }
+    main { max-width:720px; margin:0 auto; padding:48px 20px 80px; }
+    h1 { font-size:1.75rem; font-weight:650; letter-spacing:-0.02em; margin:0 0 12px; }
+    .lead { color:var(--muted); font-size:1.05rem; margin:0 0 28px; }
+    .cards { display:grid; gap:12px; }
+    .card { border:1px solid var(--line); border-radius:10px; padding:16px 18px; }
+    .card h2 { margin:0 0 6px; font-size:1rem; }
+    .card p { margin:0; color:var(--muted); font-size:0.92rem; }
+    .cta { display:inline-block; margin-top:28px; padding:10px 16px; background:var(--fg); color:#fff; border-radius:8px; font-size:0.92rem; }
+    .cta:hover { text-decoration:none; opacity:0.9; }
+    footer { max-width:720px; margin:0 auto; padding:0 20px 40px; color:var(--muted); font-size:0.8rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Noesyx Lab</strong>
+    <nav>
+      <a href="/lab/">Home</a>
+      <a href="/lab/account/">Account</a>
+      <a href="/lab/mcp/">MCP</a>
+      <a href="/memo/">Memo</a>
+      <a href="/console/">Console</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Agent-native memory</h1>
+    <p class="lead">Repo-structured notes → tasks → playbooks. Connect from Grok (or any MCP client) with your own token — not a shared password.</p>
+    <div class="cards">
+      <div class="card">
+        <h2>1. Account</h2>
+        <p>Create a username. We issue a personal MCP token (password stays on the web only).</p>
+      </div>
+      <div class="card">
+        <h2>2. MCP URL</h2>
+        <p>In Grok: custom MCP name + server URL. Paste your token as the client secret / bearer when prompted.</p>
+      </div>
+      <div class="card">
+        <h2>3. Memo preview</h2>
+        <p>Public nodes only for now. Private memory stays behind auth + MCP.</p>
+      </div>
+    </div>
+    <a class="cta" href="/lab/account/">Open account</a>
+  </main>
+  <footer>
+    Preview host may be github.io until DNS for noesyx-lab.com points here.<br>
+    Product surface · Noesyx Lab
+  </footer>
+</body>
+</html>
